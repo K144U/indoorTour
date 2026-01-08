@@ -83,70 +83,28 @@ const images = [
     'https://upload.wikimedia.org/wikipedia/commons/0/08/360_%D0%B3%D1%80%D0%B0%D0%B4%D1%83%D1%81%D0%BE%D0%B2%D0%B0_%D0%BF%D0%B0%D0%BD%D0%BE%D1%80%D0%B0%D0%BC%D0%B0_%D0%BE%D1%82_%D0%9D%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%B0%D0%BB%D0%B5%D0%BD_%D0%BF%D0%BE%D0%BB%D0%B8%D1%82%D0%B5%D1%85%D0%BD%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8_%D0%BC%D1%83%D0%B7%D0%B5%D0%B9_40.jpg'
 ];
 
+console.log(images.length);
+
 let currentImageIndex = 0;
 const textureLoader = new THREE.TextureLoader();
 
-// Hotspot configuration - define which scene has hotspots to which other scenes
-const hotspotConfig = {
-    0: [{ target: 1, position: { x: -130, y: -70, z: -15 }, label: "move here" }],
-    1: [
-        { target: 0, position: { x: -55, y: -55, z: 120 }, label: "move here" },
-        { target: 2, position: { x: 50, y: -55, z: -80 }, label: "move here" }
-    ],
-    2: [
-        { target: 1, position: { x: -50, y: -55, z: 80 }, label: "move here" },
-        { target: 3, position: { x: 50, y: 0, z: -100 }, label: "move here" }
-    ],
-    3: [
-        { target: 2, position: { x: -50, y: 0, z: -100 }, label: "move here" },
-        { target: 4, position: { x: 50, y: 0, z: -100 }, label: "move here" }
-    ],
-    4: [
-        { target: 3, position: { x: -50, y: 0, z: -100 }, label: "move here" },
-        { target: 5, position: { x: 50, y: 0, z: -100 }, label: "move here" }
-    ],
-    5: [
-        { target: 4, position: { x: -50, y: 0, z: -100 }, label: "move here" },
-        { target: 6, position: { x: 50, y: 0, z: -100 }, label: "move here" }
-    ],
-    6: [
-        { target: 5, position: { x: -50, y: 0, z: -100 }, label: "move here" },
-        { target: 7, position: { x: 50, y: 0, z: -100 }, label: "move here" }
-    ],
-    7: [
-        { target: 6, position: { x: -50, y: 0, z: -100 }, label: "move here" },
-        { target: 8, position: { x: 50, y: 0, z: -100 }, label: "move here" }
-    ],
-    8: [
-        { target: 7, position: { x: -50, y: 0, z: -100 }, label: "move here" },
-        { target: 9, position: { x: 50, y: 0, z: -100 }, label: "move here" }
-    ],
-    9: [
-        { target: 8, position: { x: -50, y: 0, z: -100 }, label: "move here" },
-        { target: 10, position: { x: 50, y: 0, z: -100 }, label: "move here" }
-    ],
-    10: [
-        { target: 9, position: { x: -50, y: 0, z: -100 }, label: "move here" },
-        { target: 11, position: { x: 50, y: 0, z: -100 }, label: "move here" }
-    ],
-    11: [
-        { target: 10, position: { x: -50, y: 0, z: -100 }, label: "move here" },
-        { target: 12, position: { x: 50, y: 0, z: -100 }, label: "move here" }
-    ],
-    12: [
-        { target: 11, position: { x: -50, y: 0, z: -100 }, label: "move here" },
-        { target: 13, position: { x: 50, y: 0, z: -100 }, label: "move here" }
-    ],
-    13: [
-        { target: 12, position: { x: -50, y: 0, z: -100 }, label: "move here" },
-        { target: 14, position: { x: 50, y: 0, z: -100 }, label: "move here" }
-    ],
-    14: [
-        { target: 13, position: { x: -50, y: 0, z: -100 }, label: "move here" },
-        { target: 15, position: { x: 50, y: 0, z: -100 }, label: "move here" }
-    ],
-    15: [{ target: 14, position: { x: -50, y: 0, z: -100 }, label: "move here" }]
-};
+// Hotspot configuration - Auto-generated for all 39 scenes
+// Each scene has a "Previous" button (left) and "Next" button (right)
+const hotspotConfig = Object.fromEntries(
+  images.map((_, i) => {
+    const links = [];
+    if (i > 0) {
+      links.push({ target: i - 1, position: { x: -100, y: -80, z: -100 } });
+    }
+    if (i < images.length - 1) {
+      links.push({ target: i + 1, position: { x: 100, y: -80, z: -100 } });
+    }
+    return [i, links];
+  })
+);
+
+
+
 
 // Hotspot objects
 let hotspots = [];
@@ -251,11 +209,11 @@ function createHotspots(sceneIndex) {
     // Create new hotspots
     config.forEach(hotspotData => {
         // Create glowing sphere
-        const geometry = new THREE.SphereGeometry(5, 16, 16);
+        const geometry = new THREE.SphereGeometry(8, 16, 16);
         const material = new THREE.MeshBasicMaterial({
             color: 0x00ff88,
             transparent: true,
-            opacity: 0.8
+            opacity: 0.9
         });
         const mesh = new THREE.Mesh(geometry, material);
         mesh.position.set(
@@ -274,7 +232,9 @@ function createHotspots(sceneIndex) {
         context.font = 'bold 24px Arial';
         context.fillStyle = '#00ff88';
         context.textAlign = 'center';
-        context.fillText(hotspotData.label, 128, 40);
+        // Auto-label using the target index + 1 for human-friendly numbering
+        const labelText = hotspotData.label || `Scene ${hotspotData.target + 1}`;
+        context.fillText(labelText, 128, 40);
 
         const texture = new THREE.CanvasTexture(canvas);
         const spriteMaterial = new THREE.SpriteMaterial({ map: texture });
