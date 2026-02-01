@@ -3,7 +3,7 @@ services:
     name: virtual-tour
     runtime: static
     buildCommand: npm install && npm run build
-    staticPublishPath: ./dist
+    publishDir: dist
     envVars:
       - key: NODE_VERSION
         value: 18
