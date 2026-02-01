@@ -1,0 +1,26 @@
+{
+  "name": "virtual-tour",
+  "version": "1.0.0",
+  "description": "360° Virtual Tour - Aerial View and Indoor Tour with Three.js",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [
+    "threejs",
+    "360",
+    "panorama",
+    "webgl",
+    "virtual-tour"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "vite": "^5.0.0"
+  },
+  "dependencies": {
+    "three": "^0.161.0"
+  }
+}
